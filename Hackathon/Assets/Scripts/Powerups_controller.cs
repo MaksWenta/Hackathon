@@ -38,15 +38,15 @@ public class Powerups_controller : MonoBehaviour
     {
         if (to_spawn == 0)
         {
-            x2.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+            x2.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
         }
         else if (to_spawn == 1)
         {
-            x3.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+            x3.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
         }
         else if (to_spawn == 2)
         {
-            x5.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+            x5.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
         }
         waiting_powerups++;
     }
