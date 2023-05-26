@@ -11,6 +11,10 @@ public class Powerups_controller : MonoBehaviour
     IEnumerator boost(float time, float multiplier)
     {
         income_booster *= multiplier;
+        waiting_powerups--;
+
+        yield return new WaitForSeconds(time);
+
         if (multiplier == 2)
         {
             x2.transform.position = new Vector3(50000, 5000000, 0);
@@ -24,9 +28,7 @@ public class Powerups_controller : MonoBehaviour
             x5.transform.position = new Vector3(50000, 5000000, 0);
         }
 
-        waiting_powerups--;
-
-        yield return new WaitForSeconds(time);
+        
 
         income_booster /= multiplier;
 
