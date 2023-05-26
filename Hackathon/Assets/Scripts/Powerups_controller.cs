@@ -5,19 +5,78 @@ using UnityEngine;
 public class Powerups_controller : MonoBehaviour
 {
     float income_booster = 1f;
+    int waiting_powerups = 0;
+    public GameObject x2, x3, x5, small_price;
 
-    IEnumerator boost_2x(float time)
+    IEnumerator boost(float time, float multiplier)
     {
-        income_booster *= 2;
+        income_booster *= multiplier;
+        if (multiplier == 2)
+        {
+            x2.transform.position = new Vector3(50000, 5000000, 0);
+        }
+        else if (multiplier == 3)
+        {
+            x3.transform.position = new Vector3(50000, 5000000, 0);
+        }
+        else if (multiplier == 5)
+        {
+            x5.transform.position = new Vector3(50000, 5000000, 0);
+        }
+
+        waiting_powerups--;
 
         yield return new WaitForSeconds(time);
 
-        income_booster /= 2;
+        income_booster /= multiplier;
 
     }
-
-    public void incomex2(float time)
+    
+    void spawn(int to_spawn)
     {
-        StartCoroutine(boost_2x(5));
+        if (to_spawn == 0)
+        {
+            x2.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        }
+        else if (to_spawn == 1)
+        {
+            x3.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        }
+        else if (to_spawn == 2)
+        {
+            x5.transform.position = new Vector3(2, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        }
+        waiting_powerups++;
+    }
+
+    IEnumerator spawn_powerups()
+    {
+        yield return new WaitForSeconds(5);
+
+        int to_spawn = Random.Range(0, 3);
+        if (to_spawn == 0 && x2.transform.position.y > 5000)
+        {
+            spawn(to_spawn);
+        }
+        else if (to_spawn == 1 && x3.transform.position.y > 5000)
+        {
+            spawn(to_spawn);
+        }
+        else if (to_spawn == 2 && x5.transform.position.y > 5000)
+        {
+            spawn(to_spawn);
+        }
+
+        StartCoroutine(spawn_powerups());
+    }
+
+    public void income_boost(float time, float multiplier)
+    {
+        StartCoroutine(boost(time, multiplier));
+    }
+
+    public void Start()
+    {
+        StartCoroutine(spawn_powerups());
     }
 }

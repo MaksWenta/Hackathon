@@ -100,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   myself: {fileID: 4678128173977402936}
+  time: 30
+  multiplier: 2
 --- !u!70 &4678128173977402940
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

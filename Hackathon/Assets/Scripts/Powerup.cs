@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Powerup2x : MonoBehaviour
+public class Powerup : MonoBehaviour
 {
     public Powerups_controller controller;
-    public GameObject myself;
+    public int time, multiplier;
 
     void OnMouseDown()
     {
-        controller.incomex2(5);
-        Destroy(myself);
+        controller.income_boost(time, multiplier);
     }
 }
