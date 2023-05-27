@@ -9,7 +9,7 @@ public class Powerup : MonoBehaviour
 
     void OnMouseDown()
     {
-        controller.income_boost(time, multiplier);
+        controller.Get_the_fuck_out(multiplier);
         
     }
 }
