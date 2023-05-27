@@ -4,81 +4,79 @@ using UnityEngine;
 
 public class Powerups_controller : MonoBehaviour
 {
-    float income_booster = 1f;
-    int waiting_powerups = 0;
-    public GameObject x2, x3, x5, small_price;
+    public GameObject x2, x5, x10;
+    public int smiec = 1;
 
-    IEnumerator boost(float time, float multiplier)
+    IEnumerator Czas_trwania(int sekundy, int multi)
     {
-        income_booster *= multiplier;
-        waiting_powerups--;
+        yield return new WaitForSeconds(sekundy);
+        smiec /= multi;
+    }
 
-        yield return new WaitForSeconds(time);
-
-        if (multiplier == 2)
+    public void Get_the_fuck_out(int multiplier)
+    {
+        if(multiplier == 2)
         {
-            x2.transform.position = new Vector3(50000, 5000000, 0);
+            x2.transform.position = new Vector3(50000, 50000, 0);
+            smiec *= 2;
+            StartCoroutine(Czas_trwania(15, 2));
         }
-        else if (multiplier == 3)
+        else if(multiplier == 5)
         {
-            x3.transform.position = new Vector3(50000, 5000000, 0);
+            x5.transform.position = new Vector3(50000, 50000, 0);
+            smiec *= 5;
+            StartCoroutine(Czas_trwania(10, 5));
         }
-        else if (multiplier == 5)
+        else if(multiplier == 10)
         {
-            x5.transform.position = new Vector3(50000, 5000000, 0);
+            x10.transform.position = new Vector3(50000, 50000, 0);
+            smiec *= 10;
+            StartCoroutine(Czas_trwania(5, 10));
+
         }
-
-        
-
-        income_booster /= multiplier;
 
     }
+
+    float Rand;
+
+    IEnumerator resp()
+    {
+        Debug.Log("DZIALA");
     
-    void spawn(int to_spawn)
-    {
-        if (to_spawn == 0)
-        {
-            x2.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        Rand = Random.Range(0, 3);
+        Debug.Log(Rand);
+        if (Rand == 0 && x2.transform.position != new Vector3((float)1.8, (float)0.5, 0)) {
+            x2.transform.position = new Vector3((float)1.8, (float)0.5, 0);
+            if(smiec % 2 == 0)
+            {
+                smiec /= 2;
+            }
         }
-        else if (to_spawn == 1)
-        {
-            x3.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        else if (Rand == 1 && x5.transform.position != new Vector3((float)1.8, 0, 0)) {
+            x5.transform.position = new Vector3((float)1.8, 0, 0);
+            if (smiec % 5 == 0)
+            {
+                smiec /= 5;
+            }
         }
-        else if (to_spawn == 2)
-        {
-            x5.transform.position = new Vector3((float)1.5, (float)0.6 - (float)waiting_powerups * (float)0.5, 0);
+        else if (Rand == 2 && x10.transform.position != new Vector3((float)1.8, (float)-0.5, 0)) {
+            x10.transform.position = new Vector3((float)1.8, (float)-0.5, 0);
+            if (smiec % 10 == 0)
+            {
+                smiec /= 10;
+            }
         }
-        waiting_powerups++;
-    }
-
-    IEnumerator spawn_powerups()
-    {
+        else
+        {
+            StartCoroutine(resp());
+        }
         yield return new WaitForSeconds(5);
-
-        int to_spawn = Random.Range(0, 3);
-        if (to_spawn == 0 && x2.transform.position.y > 5000)
-        {
-            spawn(to_spawn);
-        }
-        else if (to_spawn == 1 && x3.transform.position.y > 5000)
-        {
-            spawn(to_spawn);
-        }
-        else if (to_spawn == 2 && x5.transform.position.y > 5000)
-        {
-            spawn(to_spawn);
-        }
-
-        StartCoroutine(spawn_powerups());
+        StartCoroutine(resp());
     }
 
-    public void income_boost(float time, float multiplier)
+    void Start()
     {
-        StartCoroutine(boost(time, multiplier));
-    }
-
-    public void Start()
-    {
-        StartCoroutine(spawn_powerups());
+        Debug.Log("DZIALA");
+        StartCoroutine(resp());
     }
 }
