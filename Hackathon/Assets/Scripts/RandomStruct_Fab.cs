@@ -14,7 +14,7 @@ public class RandomStruct_Fab : MonoBehaviour
     public MoneyGeneration money;
     
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         if (money.money >= 500)
         {
