@@ -34,7 +34,7 @@ public class RandomStruct_Town : MonoBehaviour
                 prefab = prefab1;
                 
             }
-            if (generation == 2)
+            else if (generation == 2)
             {
                 prefab = prefab2;
                 
